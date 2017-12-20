@@ -30,7 +30,7 @@ namespace MvcMovie
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, MvcMovieContext context)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -50,8 +50,6 @@ namespace MvcMovie
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-
-           SeedData.Initialize(context);
         }
     }
 }

@@ -9,44 +9,36 @@ namespace MvcMovie.Models
 {
     public class SeedData
     {
-        public static void Initialize(MvcMovieContext context)
+        public static void Initialize(IServiceProvider serviceProvider)
         {
-            // Look for any movies.
-            //if (context.Movie.Any())
-            //{
-            //    return; // DB has been seeded
-            //}
+            using (var context = new MvcMovieContext(serviceProvider.GetRequiredService<DbContextOptions<MvcMovieContext>>()))
+            {
+                // Look for any movies.
+                if (context.Movie.Any())
+                {
+                    return; // DB has been seeded
+                }
 
-            context.Movie.AddRange
-                (
-                    //new Movie
-                    //{
-                    //    Title = "Jab we met",
-                    //    ReleaseDate = DateTime.Parse("2009-06-05"),
-                    //    Genre = "Romantic",
-                    //    Price = 29M,
-                    //    Rating = "PG-13"
-                    //},
+                context.Movie.AddRange
+                    (
+                        new Movie
+                        {
+                            Title = "Jab we met",
+                            ReleaseDate = DateTime.Parse("2009-06-05"),
+                            Genre = "Romantic",
+                            Price = 29M
+                        },
 
-                    //new Movie
-                    //{
-                    //    Title = "Father Figures",
-                    //    ReleaseDate = DateTime.Parse("2017-06-05"),
-                    //    Genre = "Comedy",
-                    //    Price = 149M,
-                    //    Rating = "PG-10"
-                    //},
-                    new Movie
-                    {
-                        Title = "Fathers",
-                        ReleaseDate = DateTime.Parse("2017-06-05"),
-                        Genre = "Comedy",
-                        Price = 149M,
-                        Rating = "PG-10"
-                    }
-
-                );
-            context.SaveChanges();
+                        new Movie
+                        {
+                            Title = "Father Figures",
+                            ReleaseDate = DateTime.Parse("2017-06-05"),
+                            Genre = "Comedy",
+                            Price = 149M
+                        }
+                    );
+                context.SaveChanges();
+            }
         }
     }
 }
